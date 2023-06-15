@@ -20,19 +20,23 @@ public class Dish {
         // Get user input for the chosen restaurant
         int chosenRestaurantId = n;
 
-        // Find the dishes for the chosen restaurant
-        System.out.println("Menu for Restaurant ID " + chosenRestaurantId + ":");
-        for (String[] row : menuData) {
-            int restaurantId = Integer.parseInt(row[0]);
-            int dishId = Integer.parseInt(row[1]);
-            String dishName = row[2];
-            double dishPrice = Double.parseDouble(row[3]);
+            // Find the dishes for the chosen restaurant
+            System.out.println("\n"+"Menu for Restaurant ID " + chosenRestaurantId + ":");
+            for (String[] row : menuData) {
+                int restaurantId = Integer.parseInt(row[0]);
+                int dishId = Integer.parseInt(row[1]);
+                String dishName = row[2];
+                double dishPrice = Double.parseDouble(row[3]);
 
-            if (restaurantId == chosenRestaurantId) {
-                System.out.println("Dish ID:" + "  "+ dishId + ", Name: "+ "  "+ dishName +", Price: " + dishPrice);
+                if (restaurantId == chosenRestaurantId) {
+                    System.out.print("Dish ID:" + " " + dishId);
+                    System.out.println("   Name: " + " " + dishName );
+                    System.out.print("Price: " + " " +dishPrice + "\n"+ "\n" );
+                }
+
             }
         }
-    }
+
 
     public static String[][] displayMenu(String csvFilePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
