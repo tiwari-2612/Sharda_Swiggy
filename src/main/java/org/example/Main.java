@@ -16,11 +16,11 @@ public class Main {
             // Display menu options
             Scanner scanner = new Scanner(System.in);
             System.out.println("Available Restaurants Choose from which you wanna enter");
-            Restro.displayMenu("C:\\Users\\uttu3\\IdeaProjects\\ShardaSwiggy\\data\\Restro.csv");
+            Restro.displayMenu("C:\\Users\\uttu3\\IdeaProjects\\ShardaSwiggy\\data\\Restro1.csv");
             int restro = scanner.nextInt();
             System.out.println();
 
-            System.out.println("Following are the available Dishes in your chosen restro");
+            Dish.menu(restro);
             Dish.displayMenu("C:\\Users\\uttu3\\IdeaProjects\\ShardaSwiggy\\data\\Menu.csv");
 
 

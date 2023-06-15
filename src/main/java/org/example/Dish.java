@@ -3,18 +3,75 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 public class Dish {
-    public static void displayMenu(String csvFilePath) {
-        String line = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-            while ((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
-                for (String item : row) {
-                    System.out.printf("%-30s", item);
-                }
-                System.out.println();
+
+    public static void menu(int n) {
+        String restaurantFile = "C:\\Users\\uttu3\\IdeaProjects\\ShardaSwiggy\\data\\Restro.csv";
+        String menuFile = "C:\\Users\\uttu3\\IdeaProjects\\ShardaSwiggy\\data\\Menu.csv";
+
+        String[][] menuData = displayMenu(menuFile);
+
+        if (menuData == null) {
+            System.out.println("Failed to read menu data.");
+            return;
+        }
+
+        String[][] restaurantData = displayMenu(restaurantFile);
+
+        // Get user input for the chosen restaurant
+        int chosenRestaurantId = n;
+
+        // Find the dishes for the chosen restaurant
+        System.out.println("Menu for Restaurant ID " + chosenRestaurantId + ":");
+        for (String[] row : menuData) {
+            int restaurantId = Integer.parseInt(row[0]);
+            int dishId = Integer.parseInt(row[1]);
+            String dishName = row[2];
+            double dishPrice = Double.parseDouble(row[3]);
+
+            if (restaurantId == chosenRestaurantId) {
+                System.out.println("Dish ID:" + "  "+ dishId + ", Name: "+ "  "+ dishName +", Price: " + dishPrice);
             }
-        } catch (IOException e) {
-            System.err.println("Error reading the menu file: " + e.getMessage());
         }
     }
+
+    public static String[][] displayMenu(String csvFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            int numRows = 0;
+
+            int numCols = -1;
+
+            // Determine the number of rows and columns in the CSV file
+            while ((line = reader.readLine()) != null) {
+                numRows++;
+                String[] values = line.split(",");
+                if (numCols == -1) {
+                    numCols = values.length;
+                } else if (numCols != values.length) {
+                    System.out.println("Error: Inconsistent number of columns in CSV file.");
+                    return null;
+                }
+            }
+
+            String[][] data = new String[numRows][numCols];
+
+            // Read the CSV file and store the data in a 2D array
+            reader.close();
+
+            BufferedReader read = new BufferedReader(new FileReader(csvFilePath));
+            int rowIndex = 0;
+
+            while ((line = read.readLine()) != null) {
+                String[] values = line.split(",");
+                data[rowIndex++] = values;
+            }
+
+            return data;
+        } catch (IOException e) {
+            System.out.println("Error reading CSV file: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
+

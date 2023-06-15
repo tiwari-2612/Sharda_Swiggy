@@ -11,7 +11,7 @@ public class Restro {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 for (String item : row) {
-                    System.out.printf("%-30s", item);
+                    System.out.printf("%-10s", item);
                 }
                 System.out.println();
             }
